@@ -472,106 +472,6 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(23);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(7);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(7);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22)))
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 /*
@@ -653,7 +553,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -872,6 +772,106 @@ function applyToTag (styleElement, obj) {
   }
 }
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(23);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(7);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(7);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22)))
 
 /***/ }),
 /* 5 */
@@ -1173,7 +1173,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(58);
+module.exports = __webpack_require__(63);
 
 
 /***/ }),
@@ -1205,8 +1205,10 @@ Vue.component('passport-authorized-clients', __webpack_require__(48));
 
 Vue.component('passport-personal-access-tokens', __webpack_require__(53));
 
+Vue.component('services-vue-elements', __webpack_require__(58));
+
 var app = new Vue({
-    el: '#app'
+    el: '#passportElements'
 });
 
 /***/ }),
@@ -31046,7 +31048,7 @@ module.exports = __webpack_require__(19);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(6);
 var Axios = __webpack_require__(21);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -31129,7 +31131,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(31);
 var dispatchRequest = __webpack_require__(32);
@@ -31851,7 +31853,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(33);
 var isCancel = __webpack_require__(9);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(4);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -42206,7 +42208,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\Example.vue"
+Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -42255,6 +42257,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Component mounted.');
+
+        axios.get('/api/user').then(function (response) {
+            console.log(response.data);
+        });
     }
 });
 
@@ -42308,7 +42314,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\Clients.vue"
+Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\Clients.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Clients.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -42342,7 +42348,7 @@ var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("bdd89670", content, false);
+var update = __webpack_require__(3)("bdd89670", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -42361,7 +42367,7 @@ if(false) {
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(undefined);
+exports = module.exports = __webpack_require__(2)(undefined);
 // imports
 
 
@@ -43105,7 +43111,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\AuthorizedClients.vue"
+Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\AuthorizedClients.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AuthorizedClients.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -43139,7 +43145,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("054c5f59", content, false);
+var update = __webpack_require__(3)("054c5f59", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -43158,7 +43164,7 @@ if(false) {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(undefined);
+exports = module.exports = __webpack_require__(2)(undefined);
 // imports
 
 
@@ -43359,7 +43365,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\PersonalAccessTokens.vue"
+Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\PersonalAccessTokens.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PersonalAccessTokens.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -43393,7 +43399,7 @@ var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("8bf61df2", content, false);
+var update = __webpack_require__(3)("8bf61df2", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -43412,7 +43418,7 @@ if(false) {
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(undefined);
+exports = module.exports = __webpack_require__(2)(undefined);
 // imports
 
 
@@ -43950,6 +43956,1000 @@ if (false) {
 
 /***/ }),
 /* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(59)
+}
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(61),
+  /* template */
+  __webpack_require__(62),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-11f48fdc",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\service\\Services.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Services.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-11f48fdc", Component.options)
+  } else {
+    hotAPI.reload("data-v-11f48fdc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(60);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("2b34ee26", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-11f48fdc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Services.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-11f48fdc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Services.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.action-link[data-v-11f48fdc] {\n    cursor: pointer;\n}\n.m-b-none[data-v-11f48fdc] {\n    margin-bottom: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    /*
+     * The component's data.
+     */
+    data: function data() {
+        return {
+            services: [],
+
+            createForm: {
+                errors: [],
+                SERVICE_NAME: '',
+                ESTIMATED_PRICE: '',
+                ESTIMATED_DURATION: '',
+                SERVICE_COLOR: '',
+                SERVICE_DESCRIPTION: ''
+            },
+
+            editForm: {
+                errors: [],
+                ID_SERVICE: '',
+                SERVICE_NAME: '',
+                ESTIMATED_PRICE: '',
+                ESTIMATED_DURATION: '',
+                SERVICE_COLOR: '',
+                SERVICE_DESCRIPTION: ''
+            }
+        };
+    },
+
+
+    /**
+     * Prepare the component (Vue 1.x).
+     */
+    ready: function ready() {
+        this.prepareComponent();
+    },
+
+
+    /**
+     * Prepare the component (Vue 2.x).
+     */
+    mounted: function mounted() {
+        this.prepareComponent();
+    },
+
+
+    methods: {
+        /**
+         * Prepare the component.
+         */
+        prepareComponent: function prepareComponent() {
+            this.getCurrentServices();
+
+            $('#modal-create-service').on('shown.bs.modal', function () {
+                $('#create-service-name').focus();
+            });
+
+            $('#modal-edit-service').on('shown.bs.modal', function () {
+                $('#edit-service-name').focus();
+            });
+        },
+
+
+        /**
+         * Get all of the OAuth services for the user.
+         */
+        getCurrentServices: function getCurrentServices() {
+            var _this = this;
+
+            axios.get('/api/services').then(function (response) {
+                _this.services = response.data;
+            });
+        },
+
+
+        /**
+         * Show the form for creating new services.
+         */
+        showCreateServiceForm: function showCreateServiceForm() {
+            $('#modal-create-service').modal('show');
+        },
+
+
+        /**
+         * Create a new OAuth service for the user.
+         */
+        store: function store() {
+            this.persistService('post', '/api/services', this.createForm, '#modal-create-service');
+        },
+
+
+        /**
+         * Edit the given service.
+         */
+        edit: function edit(service) {
+            this.editForm.ID_SERVICE = service.ID_SERVICE;
+            this.editForm.SERVICE_NAME = service.SERVICE_NAME;
+            this.editForm.ESTIMATED_PRICE = service.ESTIMATED_PRICE;
+            this.editForm.ESTIMATED_DURATION = service.ESTIMATED_DURATION;
+            this.editForm.SERVICE_COLOR = service.SERVICE_COLOR;
+            this.editForm.SERVICE_DESCRIPTION = service.SERVICE_DESCRIPTION;
+
+            $('#modal-edit-service').modal('show');
+        },
+
+
+        /**
+         * Update the service being edited.
+         */
+        update: function update() {
+            this.persistService('put', '/api/services/' + this.editForm.id, this.editForm, '#modal-edit-service');
+        },
+
+
+        /**
+         * Persist the client to storage using the given form.
+         */
+        persistService: function persistService(method, uri, form, modal) {
+            var _this2 = this;
+
+            form.errors = [];
+
+            axios[method](uri, form).then(function (response) {
+                _this2.getCurrentServices();
+
+                form.SERVICE_NAME = '';
+                form.ESTIMATED_PRICE = '';
+                form.ESTIMATED_DURATION = '';
+                form.SERVICE_COLOR = '';
+                form.SERVICE_DESCRIPTION = '';
+                form.errors = [];
+
+                $(modal).modal('hide');
+            }).catch(function (error) {
+                if (_typeof(error.response.data) === 'object') {
+                    form.errors = _.flatten(_.toArray(error.response.data));
+                } else {
+                    form.errors = ['Something went wrong. Please try again.'];
+                }
+            });
+        },
+
+
+        /**
+         * Destroy the given client.
+         */
+        destroy: function destroy(service) {
+            var _this3 = this;
+
+            axios.delete('/api/services/' + service.id).then(function (response) {
+                _this3.getCurrentServices();
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('div', {
+    staticStyle: {
+      "display": "flex",
+      "justify-content": "space-between",
+      "align-items": "center"
+    }
+  }, [_c('span', [_vm._v("\n                    API Current Services\n                ")]), _vm._v(" "), _c('a', {
+    staticClass: "action-link",
+    on: {
+      "click": _vm.showCreateServiceForm
+    }
+  }, [_vm._v("\n                    Create New Service\n                ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [(_vm.services.length === 0) ? _c('p', {
+    staticClass: "m-b-none"
+  }, [_vm._v("\n                You have not created any Services.\n            ")]) : _vm._e(), _vm._v(" "), (_vm.services.length > 0) ? _c('table', {
+    staticClass: "table table-borderless m-b-none"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.services), function(service) {
+    return _c('tr', [_c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v("\n                        " + _vm._s(service.ID_SERVICE) + "\n                    ")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(service.SERVICE_NAME))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(service.ESTIMATED_PRICE))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(service.ESTIMATED_DURATION))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(service.SERVICE_DESCRIPTION))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(service.SERVICE_COLOR))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('a', {
+      staticClass: "action-link",
+      on: {
+        "click": function($event) {
+          _vm.edit(service)
+        }
+      }
+    }, [_vm._v("\n                            Edit\n                        ")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_c('a', {
+      staticClass: "action-link text-danger",
+      on: {
+        "click": function($event) {
+          _vm.destroy(service)
+        }
+      }
+    }, [_vm._v("\n                            Delete\n                        ")])])])
+  }))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "modal-create-service",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.createForm.errors.length > 0) ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, [_vm._m(2), _vm._v(" "), _c('br'), _vm._v(" "), _c('ul', _vm._l((_vm.createForm.errors), function(error) {
+    return _c('li', [_vm._v("\n                                " + _vm._s(error) + "\n                            ")])
+  }))]) : _vm._e(), _vm._v(" "), _c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "role": "form"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Name")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.SERVICE_NAME),
+      expression: "createForm.SERVICE_NAME"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "create-service-name",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.createForm.SERVICE_NAME)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.SERVICE_NAME = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "help-block"
+  }, [_vm._v("Service will be used based on its name and color")])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Estimated Price")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.ESTIMATED_PRICE),
+      expression: "createForm.ESTIMATED_PRICE"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "create-service-price",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.createForm.ESTIMATED_PRICE)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.ESTIMATED_PRICE = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Estimated Duration")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.ESTIMATED_DURATION),
+      expression: "createForm.ESTIMATED_DURATION"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "create-service-duration",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.createForm.ESTIMATED_DURATION)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.ESTIMATED_DURATION = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Color")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.SERVICE_COLOR),
+      expression: "createForm.SERVICE_COLOR"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "create-service-color",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.createForm.SERVICE_COLOR)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.SERVICE_COLOR = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Description")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.createForm.SERVICE_DESCRIPTION),
+      expression: "createForm.SERVICE_DESCRIPTION"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "create-service-description"
+    },
+    domProps: {
+      "value": (_vm.createForm.SERVICE_DESCRIPTION)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.store($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.createForm.SERVICE_DESCRIPTION = $event.target.value
+      }
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.store
+    }
+  }, [_vm._v("Create")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "modal-edit-service",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.editForm.errors.length > 0) ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, [_vm._m(4), _vm._v(" "), _c('br'), _vm._v(" "), _c('ul', _vm._l((_vm.editForm.errors), function(error) {
+    return _c('li', [_vm._v("\n                                " + _vm._s(error) + "\n                            ")])
+  }))]) : _vm._e(), _vm._v(" "), _c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "role": "form"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Name")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.SERVICE_NAME),
+      expression: "editForm.SERVICE_NAME"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "edit-service-name",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.editForm.SERVICE_NAME)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.SERVICE_NAME = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "help-block"
+  }, [_vm._v("Service will be used based on its name and color")])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Estimated Price")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.ESTIMATED_PRICE),
+      expression: "editForm.ESTIMATED_PRICE"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "edit-service-price",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.editForm.ESTIMATED_PRICE)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.ESTIMATED_PRICE = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Estimated Duration")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.ESTIMATED_DURATION),
+      expression: "editForm.ESTIMATED_DURATION"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "edit-service-duration",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.editForm.ESTIMATED_DURATION)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.ESTIMATED_DURATION = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Color")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.SERVICE_COLOR),
+      expression: "editForm.SERVICE_COLOR"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "edit-service-color",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.editForm.SERVICE_COLOR)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.SERVICE_COLOR = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-md-3 control-label"
+  }, [_vm._v("Description")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.editForm.SERVICE_DESCRIPTION),
+      expression: "editForm.SERVICE_DESCRIPTION"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "edit-service-description"
+    },
+    domProps: {
+      "value": (_vm.editForm.SERVICE_DESCRIPTION)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.update($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.editForm.SERVICE_DESCRIPTION = $event.target.value
+      }
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.update
+    }
+  }, [_vm._v("Save Changes")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Service ID")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Price")]), _vm._v(" "), _c('th', [_vm._v("Duration")]), _vm._v(" "), _c('th', [_vm._v("Description")]), _vm._v(" "), _c('th', [_vm._v("Color")]), _vm._v(" "), _c('th', [_vm._v("Created By")]), _vm._v(" "), _c('th'), _vm._v(" "), _c('th')])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button ",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("\n                        Create Service\n                    ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', [_c('strong', [_vm._v("Whoops!")]), _vm._v(" Something went wrong!")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button ",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("\n                        Edit Service\n                    ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', [_c('strong', [_vm._v("Whoops!")]), _vm._v(" Something went wrong!")])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-11f48fdc", module.exports)
+  }
+}
+
+/***/ }),
+/* 63 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -17,7 +17,6 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 
-
 Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue')
@@ -33,6 +32,11 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
+Vue.component(
+    'services-vue-elements',
+    require('./components/service/Services.vue')
+);
+
 const app = new Vue({
-    el: '#app'
+    el: '#passportElements'
 });
