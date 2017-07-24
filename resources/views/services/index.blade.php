@@ -8,7 +8,6 @@
             <services-vue-elements></services-vue-elements>
         </div>
 
-
     </div>
 </div>
 @endsection

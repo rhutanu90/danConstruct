@@ -45,6 +45,6 @@ Route::get('/callback', function (Request $request) {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/service', 'ServiceController@viewServices');
+Route::get('/service', 'ServiceController@viewServices')->name('viewServices');
 
 Auth::routes();

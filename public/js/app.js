@@ -1191,6 +1191,9 @@ __webpack_require__(13);
 
 window.Vue = __webpack_require__(38);
 
+//var Slider = require('vue-color/src/components/Slider.vue');
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -42208,7 +42211,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\Example.vue"
+Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -42283,7 +42286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+  }, [_vm._v("\n                    I'm an example componentrr!\n                ")])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -42314,7 +42317,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\Clients.vue"
+Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\Clients.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Clients.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -43111,7 +43114,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\AuthorizedClients.vue"
+Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\AuthorizedClients.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AuthorizedClients.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -43365,7 +43368,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\PersonalAccessTokens.vue"
+Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\passport\\PersonalAccessTokens.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PersonalAccessTokens.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -43975,7 +43978,7 @@ var Component = __webpack_require__(1)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "F:\\xampp\\htdocs\\danConstruct\\resources\\assets\\js\\components\\service\\Services.vue"
+Component.options.__file = "C:\\MAMP\\htdocs\\danConstruct\\resources\\assets\\js\\components\\service\\Services.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Services.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -44396,7 +44399,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
          * Update the service being edited.
          */
         update: function update() {
-            this.persistService('put', '/api/services/' + this.editForm.id, this.editForm, '#modal-edit-service');
+            this.persistService('put', '/api/services/' + this.editForm.ID_SERVICE, this.editForm, '#modal-edit-service');
         },
 
 
@@ -44435,7 +44438,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         destroy: function destroy(service) {
             var _this3 = this;
 
-            axios.delete('/api/services/' + service.id).then(function (response) {
+            axios.delete('/api/services/' + service.ID_SERVICE).then(function (response) {
                 _this3.getCurrentServices();
             });
         }

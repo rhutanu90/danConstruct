@@ -25,11 +25,11 @@ class SaveServiceRequest extends FormRequest
     {
         return [
             'ID_SERVICE' => 'integer|exists:services,ID_SERVICE',
-            'SERVICE_NAME' => 'required',
-            'ESTIMATED_PRICE' => 'required',
-            'ESTIMATED_DURATION' => 'integer',
-            'SERVICE_COLOR' => 'required',
-            'SERVICE_DESCRIPTION' => 'required'
+            'SERVICE_NAME' => 'required|max:25',
+            'ESTIMATED_PRICE' => 'required|integer|max:99999999',
+            'ESTIMATED_DURATION' => 'required|integer|max:3600',
+            'SERVICE_COLOR' => 'required|max:6',
+            'SERVICE_DESCRIPTION' => 'required|max:255'
         ];
     }
 }

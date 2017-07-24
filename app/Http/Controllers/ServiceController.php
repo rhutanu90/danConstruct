@@ -6,6 +6,7 @@ use App\Http\Requests\SaveServiceRequest;
 use App\Service;
 use Illuminate\Http\Request;
 use Zend\Diactoros\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -26,29 +27,16 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return Service::all();
+        return Service::where('DELETED', 0)->where('CREATED_USER_ID', Auth::id())->get();
     }
 
 
 
     public function viewServices(){
-        $services = Service::all();
+        $services = Service::where('DELETED', 0)->where('CREATED_USER_ID', Auth::id())->get();
 
         return view('services.index', compact('services'));
     }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
 
 
     /**
@@ -62,36 +50,9 @@ class ServiceController extends Controller
         //validation is executed before because of the request
 
         //If form data is valid => save or edit
-        Service::getInstance()->saveNewService($request->all());
-
-        return redirect('services');
+        return Service::getInstance()->saveNewService($request->all());
     }
 
-
-
-    /**
-     * Return a service object  by the specified resource ID.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function show($serviceID)
-    {
-        $service = Service::findOrFail($serviceID);
-
-        return $service;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Service $service)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -100,9 +61,11 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(SaveServiceRequest $request, $serviceID)
     {
-        //
+        $operationResponse = Service::getInstance()->editService($request->all(), $serviceID);
+
+        return $this->viewServices();
     }
 
     /**
@@ -111,8 +74,8 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy($serviceID)
     {
-        //
+        return Service::getInstance()->deleteService($serviceID);
     }
 }

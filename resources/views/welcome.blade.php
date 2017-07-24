@@ -93,12 +93,11 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
 
-
-
             </div>
         </div>
 
+    @if(Auth::check())
         <script src="{{ asset('/js/app.js') }}"></script>
-
+    @endif
     </body>
 </html>

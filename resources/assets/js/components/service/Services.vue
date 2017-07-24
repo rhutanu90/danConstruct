@@ -343,7 +343,7 @@
              */
             update() {
                 this.persistService(
-                    'put', '/api/services/' + this.editForm.id,
+                    'put', '/api/services/' + this.editForm.ID_SERVICE,
                     this.editForm, '#modal-edit-service'
                 );
             },
@@ -380,7 +380,7 @@
              * Destroy the given client.
              */
             destroy(service) {
-                axios.delete('/api/services/' + service.id)
+                axios.delete('/api/services/' + service.ID_SERVICE)
                     .then(response => {
                         this.getCurrentServices();
                     });
