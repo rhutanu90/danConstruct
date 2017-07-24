@@ -186,8 +186,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
                                 <div class="col-md-7">
-                                    <input id="edit-service-name" type="text" class="form-control"
-                                           @keyup.enter="update" v-model="editForm.SERVICE_NAME">
+                                    <input id="edit-service-name" type="text" class="form-control" @keyup.enter="update" v-model="editForm.SERVICE_NAME">
                                     <span class="help-block">Service will be used based on its name and color</span>
                                 </div>
                             </div>
@@ -195,8 +194,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Estimated Price</label>
                                 <div class="col-md-7">
-                                    <input id="edit-service-price" type="text" class="form-control"
-                                           @keyup.enter="update" v-model="editForm.ESTIMATED_PRICE">
+                                    <input id="edit-service-price" type="text" class="form-control" @keyup.enter="update" v-model="editForm.ESTIMATED_PRICE">
                                 </div>
                             </div>
 
@@ -211,8 +209,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Color</label>
                                 <div class="col-md-7">
-                                    <input id="edit-service-color" type="text" class="form-control"
-                                           @keyup.enter="update" v-model="editForm.SERVICE_COLOR">
+                                    <chrome-picker v-model="editForm.SERVICE_COLOR"></chrome-picker>
                                 </div>
                             </div>
 
@@ -238,10 +235,8 @@
 </template>
 
 <script>
+    var Chrome = require('vue-color/src/components/Chrome.vue');
     export default {
-        /*
-         * The component's data.
-         */
         data() {
             return {
                 services: [],
@@ -263,7 +258,7 @@
                     ESTIMATED_DURATION: '',
                     SERVICE_COLOR: '',
                     SERVICE_DESCRIPTION: ''
-                }
+                },
             };
         },
 
@@ -279,6 +274,10 @@
          */
         mounted() {
             this.prepareComponent();
+        },
+
+        components: {
+            'chrome-picker': Chrome,
         },
 
         methods: {
