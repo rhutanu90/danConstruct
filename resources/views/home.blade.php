@@ -21,4 +21,9 @@
 </div>
 @endsection
 
+@section('footerDependencies')
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+@endsection
+
 

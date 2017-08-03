@@ -43,8 +43,9 @@ Route::get('/callback', function (Request $request) {
 });
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/apiTokens', 'HomeController@index')->name('apiTokens')->middleware('auth');
 
-Route::get('/service', 'ServiceController@viewServices')->name('viewServices');
+Route::get('/service', 'ServiceController@viewServices')->name('viewServices')->middleware('auth');
+Route::get('/client', 'ClientController@viewClients')->name('viewClients')->middleware('auth');
 
 Auth::routes();

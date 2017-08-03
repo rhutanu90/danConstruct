@@ -8350,3 +8350,45 @@ button.close {
   }
 }
 
+.current-colorIcon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #000;
+  cursor: pointer;
+  vertical-align: middle;
+  border-radius: 16px;
+}
+
+table tbody tr td {
+  max-width: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+textarea {
+  resize: none;
+}
+
+.color-picker-component .current-color {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.color-picker-component .vue-color__chrome {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 100;
+}
+
+.color-picker-component .current-CurrencyFormat {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+}
+

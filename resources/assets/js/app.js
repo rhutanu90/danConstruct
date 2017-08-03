@@ -38,5 +38,5 @@ Vue.component(
 );
 
 new Vue({
-    el: '#passportElements'
+    el: '#passportElements',
 })

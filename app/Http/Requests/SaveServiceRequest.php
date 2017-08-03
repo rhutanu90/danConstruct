@@ -28,7 +28,7 @@ class SaveServiceRequest extends FormRequest
             'SERVICE_NAME' => 'required|max:25',
             'ESTIMATED_PRICE' => 'required|integer|max:99999999',
             'ESTIMATED_DURATION' => 'required|integer|max:3600',
-            'SERVICE_COLOR' => 'required|max:6',
+            'SERVICE_COLOR' => 'required|size:7',
             'SERVICE_DESCRIPTION' => 'required|max:255'
         ];
     }

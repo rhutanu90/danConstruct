@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveServiceRequest;
 use App\Service;
-use Illuminate\Http\Request;
-use Zend\Diactoros\Response;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -34,6 +34,11 @@ class ServiceController extends Controller
 
     public function viewServices(){
         $services = Service::where('DELETED', 0)->where('CREATED_USER_ID', Auth::id())->get();
+
+        foreach ($services as $service){
+            $rares = new Carbon($service->created_at);
+            $service->dateToBeDisplayed = $rares->toFormattedDateString();
+        }
 
         return view('services.index', compact('services'));
     }
