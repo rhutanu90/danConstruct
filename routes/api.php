@@ -18,5 +18,10 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::group(['middleware' => 'auth:api'], function() {
+
     Route::resource('services', 'ServiceController');
+
+    Route::post('/client', 'ClientController@store');
+
 });
+

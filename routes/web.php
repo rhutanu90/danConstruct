@@ -46,6 +46,10 @@ Route::get('/callback', function (Request $request) {
 Route::get('/apiTokens', 'HomeController@index')->name('apiTokens')->middleware('auth');
 
 Route::get('/service', 'ServiceController@viewServices')->name('viewServices')->middleware('auth');
+
 Route::get('/client', 'ClientController@viewClients')->name('viewClients')->middleware('auth');
+Route::get('/client/create', 'ClientController@create')->middleware('auth');
+
+Route::post('client', 'ClientController@store')->middleware('auth');
 
 Auth::routes();

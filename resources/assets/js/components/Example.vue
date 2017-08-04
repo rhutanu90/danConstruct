@@ -23,8 +23,6 @@
     var Chrome = require('vue-color/src/components/Chrome.vue');
 
 
-
-
     export default {
         data() {
             return {
