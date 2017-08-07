@@ -27,4 +27,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'CREATED_USER_ID');
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'created_by ');
+    }
+
 }

@@ -25,4 +25,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+
+    static public function footerData()
+    {
+        return 'test';
+    }
 }

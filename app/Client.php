@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
@@ -34,6 +35,7 @@ class Client extends Model
 
     protected static $inst = null;
 
+
     public static function getInstance()
     {
         if (self::$inst === null) {
@@ -41,4 +43,19 @@ class Client extends Model
         }
         return self::$inst;
     }
+
+
+    public function scopeFilter($query, $filters)
+    {
+
+        if ($year = $filters['year']) {
+            $query->whereYear('created_at', $year);
+        }
+
+        if ($gender = $filters['gender']) {
+            $query->where('gender', $gender);
+        }
+
+    }
+
 }

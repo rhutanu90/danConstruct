@@ -24,6 +24,8 @@
 
     </div>
 
+    @include('layouts.footer')
+
     @yield('footerDependencies')
 </body>
 </html>

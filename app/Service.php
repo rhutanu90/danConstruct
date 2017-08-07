@@ -93,4 +93,11 @@ class Service extends Model
         return $service;
     }
 
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'CREATED_USER_ID');
+    }
+
+
 }

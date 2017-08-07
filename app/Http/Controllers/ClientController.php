@@ -16,7 +16,8 @@ class ClientController extends Controller
      */
     public function viewClients()
     {
-        $clients = Client::where('deleted', 0)->where('created_by', Auth::id())->get();
+        $clients = Client::where('deleted', 0)->where('created_by', Auth::id())
+            ->filter(request(['gender', 'year']))->latest()->get();
 
         return view('clients.index', compact('clients'));
     }
